@@ -1,11 +1,18 @@
 # -*- coding: utf-8 -*-
 import scrapy
 
+class QuotesSpider(scrapy.Spider):
+    name = "films"
 
-class ExampleSpider(scrapy.Spider):
-    name = "example"
-    allowed_domains = ["example.com"]
-    start_urls = ['http://example.com/']
+    def start_requests(self):
+        urls = [
+            'http://www.filmweb.pl/rankings/film/world',
+        ]
+        for url in urls:
+            yield scrapy.Request(url=url, callback=self.parse)
 
     def parse(self, response):
-        pass
+        for position in response.css('td.place a.s-20::text'):
+            yield {
+                'title': position.extract(),
+            }
