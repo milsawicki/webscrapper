@@ -4,11 +4,13 @@
 #
 # See documentation in:
 # http://doc.scrapy.org/en/latest/topics/items.html
+from scrapy.loader.processors import  TakeFirst
 
 import scrapy
 
-
-class WebscrapperItem(scrapy.Item):
+class MovieItem(scrapy.Item):
     # define the fields for your item here like:
-    # name = scrapy.Field()
+    title = scrapy.Field()
+    title_pl = scrapy.Field()
+    rating = scrapy.Field()
     pass
