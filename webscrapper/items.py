@@ -12,5 +12,6 @@ class MovieItem(scrapy.Item):
     # define the fields for your item here like:
     title = scrapy.Field()
     title_pl = scrapy.Field()
-    rating = scrapy.Field()
+    year = scrapy.Field()
+    plot = scrapy.Field()
     pass

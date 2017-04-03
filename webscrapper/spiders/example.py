@@ -10,16 +10,17 @@ class QuotesSpider(scrapy.Spider):
 
     def start_requests(self):
         urls = [
-            'http://www.filmweb.pl/rankings/film/world',
+            'http://www.filmweb.pl/search/serial?q=&type=&startYear=&endYear=&countryIds=&genreIds=&startRate=&endRate=&startCount=1000&endCount=&sort=COUNT&sortAscending=false&c=portal&page=1',
         ]
         for url in urls:
             yield scrapy.Request(url=url, callback=self.parse)
 
-    def parse(self, response):
-        index =0;
-        for position in response.css('.element'):
+    def parse_page(self, response):
+        index =1;
+        for position in response.css('.filmPreview '):
             item = MovieItem()
-            item['title'] = position.css('.cap::text').extract_first()
-            item['title_pl'] = position.css('.s-20::text').extract_first()
-            item['rating'] = position.css('.s-16::text').extract_first()
+            item['title'] = position.css('.filmSubtitle::text').extract_first()
+            item['title_pl'] = position.css('.filmTitle::text').extract_first()
+            item['year'] = position.css('.infoYear::text').extract_first()
+            item['plot'] = position.css('.filmPlot::text').extract_first()
             yield item
