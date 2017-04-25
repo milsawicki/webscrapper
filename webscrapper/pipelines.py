@@ -6,17 +6,30 @@
 # See: http://doc.scrapy.org/en/latest/topics/item-pipeline.html
 
 import json
-import re
+from scrapy.conf import settings
+from scrapy.exceptions import DropItem
+import pymongo
+from scrapy import log
 
-class FilmsToJsonWriterPipeline(object):
+class FilmwebPipeline(object):
 
-    def open_spider(self, spider):
-        self.file = open('items.jl', 'wb')
+    def __init__(self):
+        connection = pymongo.MongoClient(
+            settings['MONGODB_HOST'],
+            settings['MONGODB_PORT']
+        )
+        db = connection[settings['MONGODB_DB']]
+        self.collection = db[settings['MONGODB_COLLECTION']]
 
-    def close_spider(self, spider):
-        self.file.close()
 
     def process_item(self, item, spider):
-        line = json.dumps(dict(item)) + "\n"
-        self.file.write(line)
+        valid = True
+        for data in item:
+            if not data:
+                valid = False
+                raise DropItem("Missing {0}!".format(data))
+        if valid:
+            self.collection.insert(dict(item))
+            log.msg("Question added to MongoDB database!",
+                    level=log.DEBUG, spider=spider)
         return item
