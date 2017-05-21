@@ -13,5 +13,7 @@ class MovieItem(scrapy.Item):
     title = scrapy.Field()
     title_pl = scrapy.Field()
     year = scrapy.Field()
+    director = scrapy.Field()
     plot = scrapy.Field()
+    image = scrapy.Field()
     pass

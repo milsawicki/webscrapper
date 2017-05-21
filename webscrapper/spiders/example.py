@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 import scrapy
+import  re
 from webscrapper.items import MovieItem
 
 
@@ -16,13 +17,14 @@ class QuotesSpider(scrapy.Spider):
             yield scrapy.Request(url=url, callback=self.parse)
 
     def parse(self, response):
-
-        for position in response.css('.filmContent '):
+        for position in response.css('.filmPreview '):
             item = MovieItem()
             item['title'] = position.css('.filmSubtitle::text').extract_first()
             item['title_pl'] = position.css('.filmTitle::text').extract_first()
             item['year'] = position.css('.infoYear::text').extract_first()
-            item['plot'] = position.css('.filmPlot::text').extract_first()
+            item['plot'] = position.css('.filmPlot p::text').extract_first()
+            item['director'] = position.css('.filmInfo a[target=_blank]::text').extract_first()
+            item['image'] = position.css('img::attr(src)').extract()[1]
             yield item
 
         next_page = response.xpath('//*[@class="nextLink"]//@href').extract()
