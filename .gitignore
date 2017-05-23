@@ -1,0 +1,14 @@
+.idea/misc.xml
+.idea/modules.xml
+.idea/vcs.xml
+.idea/webscrapper.iml
+.idea/workspace.xml
+webscrapper/items.jl
+webscrapper/items.pyc
+webscrapper/pipelines.pyc
+webscrapper/.idea/encodings.xml
+webscrapper/.idea/misc.xml
+webscrapper/.idea/modules.xml
+webscrapper/.idea/webscrapper.iml
+webscrapper/.idea/workspace.xml
+webscrapper/spiders/example.pyc
