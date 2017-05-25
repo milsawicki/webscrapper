@@ -16,4 +16,6 @@ class MovieItem(scrapy.Item):
     director = scrapy.Field()
     plot = scrapy.Field()
     image = scrapy.Field()
+    genres = scrapy.Field()
+    rate = scrapy.Field()
     pass
