@@ -19,3 +19,8 @@ class MovieItem(scrapy.Item):
     genres = scrapy.Field()
     rate = scrapy.Field()
     pass
+
+
+class ListItem(scrapy.Item):
+    title = scrapy.Field()
+    year = scrapy.Field()

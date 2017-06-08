@@ -21,7 +21,6 @@ class FilmwebPipeline(object):
         db = connection[settings['MONGODB_DB']]
         self.collection = db[settings['MONGODB_COLLECTION']]
 
-
     def process_item(self, item, spider):
         valid = True
         for data in item:
@@ -32,4 +31,10 @@ class FilmwebPipeline(object):
             self.collection.insert(dict(item))
             log.msg("Question added to MongoDB database!",
                     level=log.DEBUG, spider=spider)
+        return item
+
+
+class AddTablePipeline(object):
+
+    def process_item(self, item, spider):
         return item
