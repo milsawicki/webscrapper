@@ -1,20 +1,14 @@
 # -*- coding: utf-8 -*-
 import scrapy
-import  re
-from webscrapper.items import MovieItem
+from items import MovieItem
+from items import ListItem
 
-
-class QuotesSpider(scrapy.Spider):
-    name = "topFilms"
-    allowed_domains = ["filmweb.pl"]
+class FilmSpider(scrapy.Spider):
+    name = 'seriesSpider'
 
     def start_requests(self):
-        urls = [
-            'http://www.filmweb.pl/search/serial',
-        ]
-
-        for url in urls:
-            yield scrapy.Request(url=url, callback=self.parse)
+        self.driver = webdriver.Firefox()
+        yield scrapy.Request('http://www.filmweb.pl/search/serial?q=%s' % self.query, callback=self.search)
 
     def parse(self, response):
         index = 0
@@ -37,3 +31,12 @@ class QuotesSpider(scrapy.Spider):
             next_page_url = 'http://www.filmweb.pl/search/serial' + next_href
             request = scrapy.Request(url=next_page_url)
             yield request
+
+    def search(self, response):
+        list = response.css('.resultsList')
+        for pos in list.css('.hitDescWrapper'):
+            item = ListItem()
+            item['title'] = 'title'
+            item['year'] = pos.css('span::text').extract_first()
+            yield item
+
