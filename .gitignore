@@ -12,3 +12,5 @@ webscrapper/.idea/modules.xml
 webscrapper/.idea/webscrapper.iml
 webscrapper/.idea/workspace.xml
 webscrapper/spiders/example.pyc
+webscrapper/geckodriver.log
+webscrapper/spiders/data.txt
