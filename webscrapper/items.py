@@ -11,16 +11,15 @@ import scrapy
 class MovieItem(scrapy.Item):
     # define the fields for your item here like:
     title = scrapy.Field()
-    title_pl = scrapy.Field()
-    year = scrapy.Field()
-    director = scrapy.Field()
     plot = scrapy.Field()
-    image = scrapy.Field()
+    year = scrapy.Field()
+    poster = scrapy.Field()
+    director = scrapy.Field()
+    rating = scrapy.Field()
     genres = scrapy.Field()
-    rate = scrapy.Field()
     pass
-
 
 class ListItem(scrapy.Item):
     title = scrapy.Field()
+    id = scrapy.Field()
     year = scrapy.Field()
