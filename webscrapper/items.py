@@ -23,3 +23,4 @@ class ListItem(scrapy.Item):
     title = scrapy.Field()
     id = scrapy.Field()
     year = scrapy.Field()
+    poster = scrapy.Field()

@@ -13,4 +13,5 @@ class ListSpider(scrapy.Spider):
             item['title'] = pos.css('.result_text a::text').extract_first()
             item['id'] = pos.css('.findResult .result_text a::attr(href)').extract()[0].split('/')[2]
             item['year'] = pos.css('.result_text::text').re('\d+')[0]
+            item['poster'] = pos.css('.findResult img::attr(src)').extract_first()
             yield item
